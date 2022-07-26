@@ -3,6 +3,8 @@ import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword";
+import UpdateProfile from "./components/UpdateProfile";
 function App() {
   return (
     <>
@@ -15,6 +17,9 @@ function App() {
             <Route exact path="/" element={<Dashboard />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/update-profile" element={<UpdateProfile />} />
+
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Routes>
         </div>
       </Container>

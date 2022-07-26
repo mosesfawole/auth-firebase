@@ -9,6 +9,8 @@ const SignUp = () => {
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,14 +31,13 @@ const SignUp = () => {
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
+      setMessage("Registeration successful");
       navigate("/login");
     } catch (error) {
       setLoading(false);
+      setMessage("");
       setError("Failed to create an account");
       console.log(error);
-      if (error.statusCode === 400) {
-        console.log("User already exist");
-      }
     }
   };
   return (
@@ -44,6 +45,8 @@ const SignUp = () => {
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
+
+          {message && <Alert variant="success"> {message}</Alert>}
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
@@ -58,7 +61,7 @@ const SignUp = () => {
               <Form.Label>Password Confirmation:</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button disabled={loading} className="w-100 mt-4" type="submit">
               Sign Up
             </Button>
           </Form>
